@@ -1,8 +1,8 @@
 # Laporan Final Project - Software Testing
 ## Library Management System
 
-**Nama:** _(isi nama kamu)_  
-**NIM:** _(isi NIM kamu)_  
+**Nama:** Delvin Oswaldo Tanjaya  
+**NIM:** 03081230041  
 **Mata Kuliah:** Software Testing
 
 ---
