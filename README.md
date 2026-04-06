@@ -1,3 +1,5 @@
+[![CI](https://github.com/Delvintan/library-management/actions/workflows/ci.yml/badge.svg)](https://github.com/Delvintan/library-management/actions/workflows/ci.yml)
+
 # Library Management System
 
 [![CI](https://github.com/USERNAME/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/USERNAME/REPO/actions/workflows/ci.yml)
