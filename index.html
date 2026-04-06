@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Library Management System</title>
+<style>
+* { box-sizing: border-box; font-family: system-ui, sans-serif; }
+body { max-width: 900px; margin: 20px auto; padding: 20px; background: #f5f5f5; }
+h1 { color: #2c3e50; }
+.card { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+input, button { padding: 8px 12px; margin: 5px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+button { background: #3498db; color: white; border: none; cursor: pointer; }
+button:hover { background: #2980b9; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { padding: 8px; text-align: left; border-bottom: 1px solid #eee; }
+th { background: #ecf0f1; }
+.msg { padding: 10px; margin: 10px 0; border-radius: 4px; }
+.success { background: #d4edda; color: #155724; }
+.error { background: #f8d7da; color: #721c24; }
+</style>
+</head>
+<body>
+<h1>📚 Library Management System</h1>
+
+<div class="card">
+  <h2>Tambah Buku</h2>
+  <input id="isbn" placeholder="ISBN (10/13 digit)">
+  <input id="title" placeholder="Judul">
+  <input id="author" placeholder="Penulis">
+  <input id="year" type="number" placeholder="Tahun">
+  <input id="stock" type="number" placeholder="Stok" value="1">
+  <button onclick="addBook()">Tambah</button>
+  <div id="bookMsg"></div>
+</div>
+
+<div class="card">
+  <h2>Daftar Buku</h2>
+  <input id="search" placeholder="Cari judul/penulis...">
+  <button onclick="loadBooks()">Refresh / Cari</button>
+  <table id="bookTable">
+    <thead><tr><th>ID</th><th>ISBN</th><th>Judul</th><th>Penulis</th><th>Tahun</th><th>Stok</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>Registrasi Anggota</h2>
+  <input id="memberName" placeholder="Nama">
+  <input id="memberEmail" placeholder="Email">
+  <button onclick="addMember()">Daftar</button>
+  <div id="memberMsg"></div>
+</div>
+
+<div class="card">
+  <h2>Pinjam / Kembalikan Buku</h2>
+  <input id="memberId" type="number" placeholder="Member ID">
+  <input id="bookId" type="number" placeholder="Book ID">
+  <button onclick="borrow()">Pinjam</button>
+  <br>
+  <input id="loanId" type="number" placeholder="Loan ID">
+  <button onclick="returnBook()">Kembalikan</button>
+  <div id="loanMsg"></div>
+</div>
+
+<script>
+const API = "";
+
+function showMsg(elId, text, isError) {
+  document.getElementById(elId).innerHTML = `<div class="msg ${isError ? 'error' : 'success'}">${text}</div>`;
+}
+
+async function addBook() {
+  const body = {
+    isbn: document.getElementById("isbn").value,
+    title: document.getElementById("title").value,
+    author: document.getElementById("author").value,
+    year: parseInt(document.getElementById("year").value),
+    stock: parseInt(document.getElementById("stock").value),
+  };
+  const res = await fetch(API + "/books", {
+    method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)
+  });
+  const data = await res.json();
+  showMsg("bookMsg", res.ok ? "Buku ditambahkan!" : "Error: " + data.error, !res.ok);
+  if (res.ok) loadBooks();
+}
+
+async function loadBooks() {
+  const q = document.getElementById("search").value;
+  const res = await fetch(API + "/books" + (q ? "?q=" + encodeURIComponent(q) : ""));
+  const books = await res.json();
+  const tbody = document.querySelector("#bookTable tbody");
+  tbody.innerHTML = books.map(b =>
+    `<tr><td>${b.id}</td><td>${b.isbn}</td><td>${b.title}</td><td>${b.author}</td><td>${b.year}</td><td>${b.stock}</td></tr>`
+  ).join("");
+}
+
+async function addMember() {
+  const body = {
+    name: document.getElementById("memberName").value,
+    email: document.getElementById("memberEmail").value,
+  };
+  const res = await fetch(API + "/members", {
+    method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)
+  });
+  const data = await res.json();
+  showMsg("memberMsg", res.ok ? `Anggota terdaftar! ID: ${data.id}` : "Error: " + data.error, !res.ok);
+}
+
+async function borrow() {
+  const body = {
+    memberId: parseInt(document.getElementById("memberId").value),
+    bookId: parseInt(document.getElementById("bookId").value),
+  };
+  const res = await fetch(API + "/loans", {
+    method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)
+  });
+  const data = await res.json();
+  showMsg("loanMsg", res.ok ? `Berhasil pinjam! Loan ID: ${data.id}` : "Error: " + data.error, !res.ok);
+  if (res.ok) loadBooks();
+}
+
+async function returnBook() {
+  const id = document.getElementById("loanId").value;
+  const res = await fetch(API + `/loans/${id}/return`, {method: "POST"});
+  const data = await res.json();
+  showMsg("loanMsg", res.ok ? "Buku dikembalikan!" : "Error: " + data.error, !res.ok);
+  if (res.ok) loadBooks();
+}
+
+loadBooks();
+</script>
+</body>
+</html>
