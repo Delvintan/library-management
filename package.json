@@ -1,0 +1,22 @@
+{
+  "name": "library-management",
+  "version": "1.0.0",
+  "description": "Library Management System - Final Project Software Testing",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": ["src/**/*.js"],
+    "coverageReporters": ["text", "lcov", "html"]
+  }
+}
