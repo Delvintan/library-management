@@ -16,6 +16,7 @@
   },
   "jest": {
     "testEnvironment": "node",
+    "setupFiles": ["./tests/jest.setup.js"],
     "collectCoverageFrom": ["src/**/*.js"],
     "coverageReporters": ["text", "lcov", "html"]
   }

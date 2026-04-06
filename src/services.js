@@ -25,6 +25,7 @@ const BookService = {
     }
     const book = { id: db.nextBookId++, isbn, title, author, year, stock };
     db.books.push(book);
+    db.save();
     return book;
   },
   listAll() {
@@ -51,6 +52,7 @@ const MemberService = {
     }
     const member = { id: db.nextMemberId++, name: name.trim(), email };
     db.members.push(member);
+    db.save();
     return member;
   },
   findById(id) {
@@ -84,6 +86,7 @@ const LoanService = {
       returnedAt: null,
     };
     db.loans.push(loan);
+    db.save();
     return loan;
   },
   returnBook(loanId) {
@@ -93,6 +96,7 @@ const LoanService = {
     loan.returnedAt = new Date().toISOString();
     const book = BookService.findById(loan.bookId);
     book.stock += 1;
+    db.save();
     return loan;
   },
 };

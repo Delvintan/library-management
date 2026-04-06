@@ -5,6 +5,8 @@ const { BookService, MemberService, LoanService, ValidationError } = require("./
 function createApp() {
   const app = express();
   app.use(express.json());
+  const path = require("path");
+  app.use(express.static(path.join(__dirname, "..", "public")));
 
   app.get("/health", (req, res) => res.json({ status: "ok" }));
 
