@@ -1,8 +1,12 @@
 [![CI](https://github.com/Delvintan/library-management/actions/workflows/ci.yml/badge.svg)](https://github.com/Delvintan/library-management/actions/workflows/ci.yml)
 
+[![codecov](https://codecov.io/gh/Delvintan/library-management/branch/main/graph/badge.svg)](https://codecov.io/gh/Delvintan/library-management)
+
 # Library Management System
 
 [![CI](https://github.com/USERNAME/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/USERNAME/REPO/actions/workflows/ci.yml)
+
+[![codecov](https://codecov.io/gh/Delvintan/library-management/branch/main/graph/badge.svg)](https://codecov.io/gh/Delvintan/library-management)
 
 Sistem manajemen perpustakaan sederhana berbasis REST API. Dibuat untuk Final Project mata kuliah Software Testing dengan fokus pada automated testing dan continuous integration.
 
@@ -25,3 +29,4 @@ Aplikasi menyediakan REST API untuk mengelola buku, anggota, dan peminjaman. Sta
 
 ## Cara Menjalankan
 ```bash
+
