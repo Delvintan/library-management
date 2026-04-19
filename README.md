@@ -4,6 +4,8 @@
 
 # Library Management System
 
+**Live Demo:** https://library-management-production-597a.up.railway.app
+
 [![CI](https://github.com/USERNAME/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/USERNAME/REPO/actions/workflows/ci.yml)
 
 [![codecov](https://codecov.io/gh/Delvintan/library-management/branch/main/graph/badge.svg)](https://codecov.io/gh/Delvintan/library-management)
